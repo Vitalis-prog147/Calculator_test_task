@@ -10,6 +10,7 @@ public class Main {
                         "Программа предназначена для арифметических действий (сложение, вычитание, деление, умножения) только с двумя аргументами одинакового вида.\n" +
                         "Операнды и операторы необходимо отделить пробелами."
         );
+        //TestCalculator.TestNumbers(11);
         System.out.print(
                 "Ожидаю ввода выражения: ");
         String calculationExpressionInput = in.nextLine(); // Ввод выражения вычисления (Entering a calculation expression)
@@ -17,8 +18,8 @@ public class Main {
 
         in.close();
     }
+
     public static String calc (String input) throws ScannerException {
-        //Метод должен принимать строку с арифметическим выражением между двумя числами и возвращать строку с результатом их выполнения
         String[] expression = input.split(" "); // Разбитие строки на массивы (Splitting a string into arrays)
         int lengthExpression = expression.length; // Определение длины массива (Determining the length of an array)
         int lengthArray = 3; // Переменная отвечающая за логику отсеивания, условие : выражение состоит из двух переменных и одного операнда
@@ -38,6 +39,7 @@ public class Main {
             input = RomanNumerals.arabicRecordConstructor(expression[0])+" "+expression[1]+" "+RomanNumerals.arabicRecordConstructor(expression[2]);
             return RomanNumerals.RomanNumerals(calculationBlock(input));
         }
+
         else if (checkingArabicNumbers(expression[0]) && checkingArabicNumbers(expression[2])){
             return String.valueOf(calculationBlock(input));
         }
@@ -52,6 +54,7 @@ public class Main {
         }
 
     }
+
     public static Integer calculationBlock (String input) throws ScannerException {
         String[] expression = input.split(" ");
         System.out.print("Результат вычисления: ");
@@ -70,14 +73,10 @@ public class Main {
                         "throws Exception //т.к. формат математической операции не удовлетворяет заданию - " +
                                 "использованы операторы помимо (+, -, /, *)");
         }
+
     }
+
     public static Boolean checkingArabicNumbers (String input) throws ScannerException {
-
-        if (Integer.valueOf (input) > 10){//Проверка операндов на < 11 (Checking operands for < 11)
-            throw new ScannerException(
-                    "throws Exception //т.к. введеные числа арументов больше 10");
-        }
-
         String[] referenceNumbers = new String[12]; // Создания массива арабских чисел для сравнения (Creating an array of Arabic numbers for comparison)
 
         for (int i = 0; i < referenceNumbers.length; i++) { // Заполнение массива числами для сравнения (Filling an array with numbers for comparison)
@@ -86,26 +85,41 @@ public class Main {
 
         for (int i = 0; i < referenceNumbers.length; i++) { // Проверка принадлежности операнда к арабским числам
             // (Checking whether the operand belongs to Arabic numbers)
+
             if (Objects.equals(input, referenceNumbers[i])) {
+
+                if (Integer.valueOf (input) > 10){//Проверка операндов на < 11 (Checking operands for < 11)
+                    throw new ScannerException(
+                            "throws Exception //т.к. введеные числа арументов больше 10");
+                }
+
                 return true;
             }
         }
+
         return false;
     }
+
     public static Boolean checkingRomanNumbers (String input) throws ScannerException {
 
         for (int i = 1; i < 4000; i++) { // Проверка принадлежности операнда к римским числам
             // (Checking whether the operand belongs to Roman numbers)
+
             if (Objects.equals(input, RomanNumerals.RomanNumerals(i))) {
+
                 if (RomanNumerals.arabicRecordConstructor(RomanNumerals.RomanNumerals(i))> 10) {//проверка операндов на < XI (Checking operands on < XI)
                     throw new ScannerException(
                             "throws Exception //т.к. введеные числа арументов больше X");
                 }
+
                 return true;
             }
+
         }
+
         return false;
     }
+
 }
 
 

@@ -10,7 +10,8 @@ public class RomanNumerals {
             throw new ScannerException("В римской системе исчесления нет чисел меньше 1 или больше 3999" +
                     "/In the Roman system of calculus, there are no numbers less than 1 or greater than 3999");
         }
-        LinkedHashMap<String, Integer> roman_numerals = new LinkedHashMap<String, Integer>();
+
+        LinkedHashMap<String, Integer> roman_numerals = new LinkedHashMap();
         roman_numerals.put("M", 1000);
         roman_numerals.put("CM", 900);
         roman_numerals.put("D", 500);
@@ -24,16 +25,17 @@ public class RomanNumerals {
         roman_numerals.put("V", 5);
         roman_numerals.put("IV", 4);
         roman_numerals.put("I", 1);
-        String res = "";
+        String result = "";
 
         for (Map.Entry<String, Integer> convertibleNumber : roman_numerals.entrySet()) {
             int matches = arabicNumber / convertibleNumber.getValue();
-            res += romeRecordConstructor(convertibleNumber.getKey(), matches);
+            result += romeRecordConstructor(convertibleNumber.getKey(), matches);
             arabicNumber = arabicNumber % convertibleNumber.getValue();
         }
 
-        return res;
+        return result;
     }
+
     public static String romeRecordConstructor(String s, int n) {
         if (s == null) {
             return null;
@@ -44,6 +46,7 @@ public class RomanNumerals {
         }
         return stringBuilder.toString();
     }
+
     public static Integer arabicRecordConstructor(String s) throws ScannerException {
         for (int i = 1; i < 4000; i++) {
             if (Objects.equals(s, RomanNumerals.RomanNumerals(i))) {
@@ -52,4 +55,5 @@ public class RomanNumerals {
         }
         return null;
     }
+
 }
